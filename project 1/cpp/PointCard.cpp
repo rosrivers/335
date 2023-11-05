@@ -1,7 +1,5 @@
 #include "pointcard.hpp"
 #include "card.hpp"
-
-// PointCard Constructor
 PointCard::PointCard() {
     setType(CardType::POINT_CARD); 
 }
