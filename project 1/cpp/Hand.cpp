@@ -1,14 +1,21 @@
-#include "hand.hpp"
-Hand::Hand() {}
-Hand::~Hand() {}
-Hand::Hand(const Hand& other) : cards_(other.cards_) {}
+#include "Hand.hpp"
+#include <algorithm>
+Hand::Hand() {
+}
+Hand::~Hand() {
+}
+Hand::Hand(const Hand& other) {
+    cards_ = other.cards_;
+}
 Hand& Hand::operator=(const Hand& other) {
     if (this != &other) {
         cards_ = other.cards_;
     }
     return *this;
 }
-Hand::Hand(Hand&& other) : cards_(std::move(other.cards_)) {}
+Hand::Hand(Hand&& other) {
+    cards_ = std::move(other.cards_);
+}
 Hand& Hand::operator=(Hand&& other) {
     if (this != &other) {
         cards_ = std::move(other.cards_);
@@ -27,24 +34,15 @@ bool Hand::isEmpty() const {
 void Hand::Reverse() {
     std::reverse(cards_.begin(), cards_.end());
 }
-
 int Hand::PlayCard() {
-    if (!isEmpty()) {
-        PointCard frontCard = cards_.front();
-        if (frontCard.isPlayable()) {
-            int points = 0;
-            const std::string& instruction = frontCard.getInstruction();
-            for (char digit : instruction) {
-                if (std::isdigit(digit)) {
-                    points = points * 10 + (digit - '0');
-                } else {}
-            }
-            cards_.pop_front();
-            return points;
-        } else {
-            cards_.pop_front();
-            return 0;
-        }
+    if (isEmpty()) {
+        throw std::out_of_range("The hand is empty.");
     }
-    return 0; // You can return a default value or handle it as needed
+    PointCard frontCard = std::move(cards_.front());
+    cards_.pop_front();
+    
+    if (!frontCard.isPlayable()) {
+        return 0;
+    }
+    return 1 + rand() % 99;
 }
