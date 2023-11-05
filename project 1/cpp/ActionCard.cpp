@@ -1,34 +1,31 @@
 #include "ActionCard.hpp"
 ActionCard::ActionCard() {
     setType(CardType::ACTION_CARD);
+    setDrawn(false);
+    setIntruction("");
 }
 bool ActionCard::isPlayable() {
-    if (getDrawn()) {
-        std::string instruction = getInstruction();
-        if (std::regex_match(instruction, std::regex("DRAW [1-9][0-9]* CARD(S)?")) ||
-            std::regex_match(instruction, std::regex("PLAY [1-9][0-9]* CARD(S)?")) ||
-            instruction == "REVERSE HAND" ||
-            instruction == "SWAP HAND WITH OPPONENT") {
-            return true;
-        }
+    if (!getDrawn()) {
+        return false;
     }
-    return false;
+        else {
+            std::string currentIntruction = getIntruction();
+            std::regex valid("^DRAW [0-9 CARD\\(S\\) |PLAY [0-9] CARD\\(S\\) |REVERSE HAND|SWAP HAND WITH OPPENENT$");
+            return std::regex_match(currentIntruction, valid);
+        }
 }
 void ActionCard::Print() const {
     std::cout << "Type: " << getType() << std::endl;
     std::cout << "Instruction: " << getInstruction() << std::endl;
     std::cout << "Card:" << std::endl;
-    if (getDrawn()) {
-        const int* imageData = getImageData();
-        if (imageData) {
-            for (int i = 0; imageData[i] != 0; i++) {
-                std::cout << imageData[i] << " ";
+    if (getImageData() !=nullptr) {
+            for (int i = 0; i <80; i++) {
+                std::cout << getImageData()[i] << " ";
             }
-        } else {
-            std::cout << "No image data";
-        }
-    } else {
-        std::cout << "Card not drawn yet";
+            std::cout <<std::endl;
     }
-    std::cout << std::endl;
+    else {
+        std::cout << "No image data" << std::endl;  
+         }
 }
+   
