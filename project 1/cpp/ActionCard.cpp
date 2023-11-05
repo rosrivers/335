@@ -1,3 +1,7 @@
+// Name: Rosa Rivera Soto
+// Date: 11/5/2023
+
+
 #include "ActionCard.hpp"
 ActionCard::ActionCard() {
     setType(CardType::ACTION_CARD);

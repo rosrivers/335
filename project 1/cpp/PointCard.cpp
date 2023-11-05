@@ -1,4 +1,6 @@
-#include "pointcard.hpp"
+// Name: Rosa Rivera Soto
+// Date: 11/5/2023
+#include "PointCard.hpp"
 #include "card.hpp"
 PointCard::PointCard() {
     setType(CardType::POINT_CARD); 

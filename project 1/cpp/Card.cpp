@@ -1,4 +1,7 @@
-#include "card.hpp"
+// Name: Rosa Rivera Soto
+// Date: 11/5/2023
+
+#include "Card.hpp"
 
 // Default Constructor
 Card::Card() {}
