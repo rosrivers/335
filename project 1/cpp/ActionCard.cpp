@@ -1,6 +1,6 @@
 #include "ActionCard.hpp"
 ActionCard::ActionCard() {
-    setType(CardType::Action);
+    setType(CardType::ACTION_CARD);
 }
 bool ActionCard::isPlayable() {
     if (getDrawn()) {
